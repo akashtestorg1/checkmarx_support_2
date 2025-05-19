@@ -21,10 +21,10 @@ jobs:
           java -jar "C:\CxFlow\cx-flow-1.7.08.jar" `
             --scan `
             --spring.config.location="C:\CxFlow\application.yml" `
-            --cx-team=CxServer `
+            --f "$workspace"'
+            --cx-team="/CxServer" `
             --app=$repoName `
             --cx-project=$repoName `
-            --f "$workspace"
 
       - name: Cleanup Workspace
         run: |
