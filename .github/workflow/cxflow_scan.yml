@@ -1,0 +1,31 @@
+name: CxFlow Scan
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  cxflow-scan:
+    runs-on: [self-hosted, windows]
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run CxFlow Scan
+        run: |
+          $repoName = "${{ github.event.repository.name }}"
+          $workspace = "${{ github.workspace }}"
+          java -jar "C:\CxFlow\cx-flow-1.7.08.jar" `
+            --scan `
+            --spring.config.location="C:\CxFlow\application.yml" `
+            --cx-team=CxServer `
+            --app=$repoName `
+            --cx-project=$repoName `
+            --f "$workspace"
+
+      - name: Cleanup Workspace
+        run: |
+          Remove-Item -Path "${{ github.workspace }}\*" -Recurse -Force
