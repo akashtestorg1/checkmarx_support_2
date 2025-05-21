@@ -18,13 +18,14 @@ jobs:
         run: |
           $repoName = "${{ github.event.repository.name }}"
           $workspace = "${{ github.workspace }}"
-          java -jar "C:\CxFlow\cx-flow-1.7.08.jar" `
+          java -jar "C:\CxFlow\cx-flow.jar" `
             --scan `
             --spring.config.location="C:\CxFlow\application.yml" `
             --f=$workspace `
             --cx-team="/CxServer" `
             --app=$repoName `
             --cx-project=$repoName `
+            --cxflow.incremental=true
 
       - name: Cleanup Workspace
         run: |
